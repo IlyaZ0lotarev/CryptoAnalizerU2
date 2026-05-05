@@ -2,15 +2,14 @@ package com.javarush.zolotarev.cipher;
 
 public class CaesarCipher implements CipherStrategy {
 
-    private static final String AlPHABET_UPPER = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-    private static final String AlPHABET_LOWER = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
-    private static final int AlPHABET_SIZE = AlPHABET_UPPER.length();
-
+    private static final String ALPHABET_UPPER = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
+    private static final String ALPHABET_LOWER = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+    private static final int ALPHABET_SIZE = ALPHABET_UPPER.length();
 
     @Override
     public String process(String text, int key, CipherMode mode) {
 
-        int shift = normalizeShift(key, mode, AlPHABET_SIZE);
+        int shift = normalizeShift(key, mode, ALPHABET_SIZE);
 
         char[] chars = text.toCharArray();
 
@@ -18,9 +17,9 @@ public class CaesarCipher implements CipherStrategy {
             char symbol = chars[i];
 
             if (symbol >= 'А' && symbol <= 'Я') {
-                chars[i] = shiftChar(symbol, AlPHABET_UPPER, shift);
+                chars[i] = shiftChar(symbol, ALPHABET_UPPER, shift);
             } else if (symbol >= 'а' && symbol <= 'я') {
-                chars[i] = shiftChar(symbol, AlPHABET_LOWER, shift);
+                chars[i] = shiftChar(symbol, ALPHABET_LOWER, shift);
             }
         }
         return new String(chars);
@@ -33,7 +32,7 @@ public class CaesarCipher implements CipherStrategy {
 
     private char shiftChar(char symbol, String alphabet, int shift) {
         int index = alphabet.indexOf(symbol);
-        int newIndex = (index+ shift) % alphabet.length();
+        int newIndex = (index + shift) % alphabet.length();
         return alphabet.charAt(newIndex);
     }
 }
