@@ -35,7 +35,7 @@ public class FileProcessor {
                 writer.newLine();
             }
         } catch (IOException e) {
-            throw new CipherException("Ошибка чтения/записи файлов: " + e.getMessage());
+            throw new CipherException("Ошибка чтения/записи файлов: " + e.getMessage(), e);
         }
     }
 

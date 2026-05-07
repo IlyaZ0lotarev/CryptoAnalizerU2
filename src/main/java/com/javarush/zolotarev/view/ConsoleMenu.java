@@ -53,6 +53,10 @@ public class ConsoleMenu {
         if (outputPath == null) {
             return;
         }
+        if (Files.exists(outputPath) && Files.isDirectory(outputPath)) {
+            String defaultName = "result.txt";
+            outputPath = outputPath.resolve(defaultName);
+        }
 
         Integer key = askKey("Введите ключ сдвига: ");
         if (key == null) {
@@ -77,7 +81,7 @@ public class ConsoleMenu {
                 if (checkExists) {
                     if (!Files.exists(path)) {
                         System.out.println("Файл не найден: " + path);
-                    } else if (Files.isRegularFile(path)) {
+                    } else if (!Files.isRegularFile(path)) {
                         System.out.println("путь не является файлом.");
                     } else {
                         return path;
