@@ -7,9 +7,9 @@ public class CaesarCipher implements CipherStrategy {
     private static final int ALPHABET_SIZE = ALPHABET_UPPER.length();
 
     @Override
-    public String process(String text, int key, CipherMode mode) {
+    public String process(String text, int key, CipherCommands command) {
 
-        int shift = normalizeShift(key, mode, ALPHABET_SIZE);
+        int shift = normalizeShift(key, command, ALPHABET_SIZE);
 
         char[] chars = text.toCharArray();
 
@@ -25,8 +25,8 @@ public class CaesarCipher implements CipherStrategy {
         return new String(chars);
     }
 
-    private int normalizeShift(int key, CipherMode mode, int alphabetSize) {
-        int shift = (mode == CipherMode.ENCODE) ? key : -key;
+    private int normalizeShift(int key, CipherCommands command, int alphabetSize) {
+        int shift = (command == CipherCommands.ENCODE) ? key : -key;
         return ((shift % alphabetSize) + alphabetSize) % alphabetSize;
     }
 

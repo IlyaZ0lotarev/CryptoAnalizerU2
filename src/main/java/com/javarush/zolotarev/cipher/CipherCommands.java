@@ -1,6 +1,6 @@
 package com.javarush.zolotarev.cipher;
 
-public enum CipherMode {
+public enum CipherCommands {
     ENCODE,
     DECODE
 }
