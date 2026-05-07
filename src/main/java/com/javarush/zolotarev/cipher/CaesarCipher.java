@@ -2,8 +2,8 @@ package com.javarush.zolotarev.cipher;
 
 public class CaesarCipher implements CipherStrategy {
 
-    private static final String ALPHABET_UPPER = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-    private static final String ALPHABET_LOWER = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+    private static final String ALPHABET_UPPER = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
+    private static final String ALPHABET_LOWER = "абвгдежзийклмнопрстуфхцчшщъыьэюя";
     private static final int ALPHABET_SIZE = ALPHABET_UPPER.length();
 
     @Override
