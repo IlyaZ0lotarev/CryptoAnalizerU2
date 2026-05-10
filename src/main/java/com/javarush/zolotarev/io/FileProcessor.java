@@ -23,7 +23,6 @@ public class FileProcessor {
             } catch (IOException e) {
                 throw new CipherException("Не удалось создать директорию: " + parentDir);
             }
-
         }
 
         try (BufferedReader reader = Files.newBufferedReader(inputPath, StandardCharsets.UTF_8);

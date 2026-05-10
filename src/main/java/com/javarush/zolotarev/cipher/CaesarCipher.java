@@ -9,7 +9,7 @@ public class CaesarCipher implements CipherStrategy {
     @Override
     public String process(String text, int key, CipherCommands command) {
 
-        int shift = normalizeShift(key, command, ALPHABET_SIZE);
+        int shift = normalizeShift(key, command);
 
         char[] chars = text.toCharArray();
 
@@ -25,9 +25,9 @@ public class CaesarCipher implements CipherStrategy {
         return new String(chars);
     }
 
-    private int normalizeShift(int key, CipherCommands command, int alphabetSize) {
+    private int normalizeShift(int key, CipherCommands command) {
         int shift = (command == CipherCommands.ENCODE) ? key : -key;
-        return ((shift % alphabetSize) + alphabetSize) % alphabetSize;
+        return ((shift % ALPHABET_SIZE) + ALPHABET_SIZE) % ALPHABET_SIZE;
     }
 
     private char shiftChar(char symbol, String alphabet, int shift) {
