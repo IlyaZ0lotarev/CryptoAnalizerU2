@@ -1,13 +1,18 @@
 package com.javarush.zolotarev.view;
 
+import com.javarush.zolotarev.BruteForce.BruteForce;
 import com.javarush.zolotarev.cipher.CaesarCipher;
 import com.javarush.zolotarev.cipher.CipherCommands;
 import com.javarush.zolotarev.cipher.CipherStrategy;
 import com.javarush.zolotarev.io.FileProcessor;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.InvalidPathException;
+import java.nio.file.StandardOpenOption;
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleMenu {
@@ -30,7 +35,8 @@ public class ConsoleMenu {
             switch (choice) {
                 case "1" -> handleOperation(CipherCommands.ENCODE);
                 case "2" -> handleOperation(CipherCommands.DECODE);
-                case "3" -> {
+                case "3" -> handleBruteForce();
+                case "4" -> {
                     System.out.println("--Завершение работы--");
                     scanner.close();
                     return;
@@ -38,6 +44,36 @@ public class ConsoleMenu {
                 default -> System.out.println("Неверный выбор. Введите: 1, 2 или 3. \n");
             }
         }
+    }
+
+    private void handleBruteForce() {
+        System.out.println("Режим: Brute Force (перебор ключей)");
+        Path inputPath = askPath("Введите путь к зашифрованному файлу: ", true);
+        if (inputPath == null) {
+            return;
+        }
+
+        try {
+            String cipherText = Files.readString(inputPath, StandardCharsets.UTF_8);
+            System.out.println("Перебор ключей");
+            BruteForce cracker = new BruteForce();
+
+            List<BruteForce.DecryptAttempt> attempts = cracker.keySearch(cipherText);
+            BruteForce.DecryptAttempt bestKey = attempts.get(0);
+            System.out.println("Готово. Ключ: " + bestKey.getKey());
+
+            saveResult(bestKey.getText(), inputPath);
+
+        } catch (IOException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+    }
+
+
+    private void saveResult(String text, Path originalPath) throws IOException {
+        Path out = originalPath.resolveSibling(originalPath.getFileName().toString() + "_decrypted.txt");
+        Files.writeString(out, text, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        System.out.println("Сохранено: " + out);
     }
 
     private void handleOperation(CipherCommands command) {
@@ -111,6 +147,7 @@ public class ConsoleMenu {
         System.out.println("Выберите действие: \n");
         System.out.println("1. Зашифровать файл");
         System.out.println("2. Расшифровать файл");
-        System.out.println("3. Выход");
+        System.out.println("3. Расшифровка Brute Force (перебор ключей)");
+        System.out.println("4. Выход");
     }
 }
