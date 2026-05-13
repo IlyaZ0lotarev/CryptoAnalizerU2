@@ -33,7 +33,7 @@ public class BruteForce {
     }
 
     public List<DecryptAttempt> keySearch(String cipherText) {
-        int size = 33;
+        int size = CaesarCipher.ALPHABET_SIZE;
         List<DecryptAttempt> attempts = new ArrayList<>(size);
 
         for (int key = 0; key < size; key++) {

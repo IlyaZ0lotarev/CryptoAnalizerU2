@@ -4,7 +4,7 @@ public class CaesarCipher implements CipherStrategy {
 
     private static final String ALPHABET_UPPER = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
     private static final String ALPHABET_LOWER = "абвгдежзийклмнопрстуфхцчшщъыьэюя";
-    private static final int ALPHABET_SIZE = ALPHABET_UPPER.length();
+    public static final int ALPHABET_SIZE = ALPHABET_UPPER.length();
 
     @Override
     public String process(String text, int key, CipherCommands command) {
