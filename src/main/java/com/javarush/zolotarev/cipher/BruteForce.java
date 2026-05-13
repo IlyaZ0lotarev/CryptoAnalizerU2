@@ -1,7 +1,4 @@
-package com.javarush.zolotarev.BruteForce;
-
-import com.javarush.zolotarev.cipher.CaesarCipher;
-import com.javarush.zolotarev.cipher.CipherCommands;
+package com.javarush.zolotarev.cipher;
 
 import java.util.*;
 
