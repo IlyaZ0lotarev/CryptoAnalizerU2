@@ -17,13 +17,10 @@ public class ConsoleMenu {
 
     public ConsoleMenu() {
         this.scanner = new Scanner(System.in);
-
         CipherStrategy cipher = new CaesarCipher();
         FileProcessor processor = new FileProcessor();
-
         PathReader pathReader = new PathReader(scanner);
         KeyReader keyReader = new KeyReader(scanner);
-
         this.operationHandler = new OperationHandler(pathReader, keyReader, cipher, processor);
         this.bruteForceHandler = new BruteForceHandler(pathReader);
     }
@@ -33,7 +30,6 @@ public class ConsoleMenu {
         while (true) {
             printMenu();
             String choice = scanner.nextLine().trim();
-
             switch (choice) {
                 case "1" -> operationHandler.handleOperation(CipherCommands.ENCODE);
                 case "2" -> operationHandler.handleOperation(CipherCommands.DECODE);

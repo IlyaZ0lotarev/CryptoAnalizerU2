@@ -23,18 +23,14 @@ public class BruteForceHandler {
         if (inputPath == null) {
             return;
         }
-
         try {
             String cipherText = Files.readString(inputPath, StandardCharsets.UTF_8);
             System.out.println("Перебор ключей");
             BruteForce cracker = new BruteForce();
-
             List<BruteForce.DecryptAttempt> attempts = cracker.keySearch(cipherText);
-            BruteForce.DecryptAttempt bestKey = attempts.get(0);
+            BruteForce.DecryptAttempt bestKey = attempts.getFirst();
             System.out.println("Готово. Ключ: " + bestKey.getKey());
-
             saveResult(bestKey.getText(), inputPath);
-
         } catch (IOException e) {
             System.out.println("Ошибка: " + e.getMessage());
         }

@@ -3,7 +3,6 @@ package com.javarush.zolotarev.io;
 import com.javarush.zolotarev.cipher.CipherCommands;
 import com.javarush.zolotarev.cipher.CipherStrategy;
 import com.javarush.zolotarev.exception.CipherException;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -15,7 +14,6 @@ import java.nio.file.StandardOpenOption;
 public class FileProcessor {
     public void process(Path inputPath, Path outputPath, CipherCommands command, int key, CipherStrategy cipher) {
         validateInput(inputPath);
-
         Path parentDir = outputPath.getParent();
         if (parentDir != null && !Files.exists(parentDir)) {
             try {
@@ -24,7 +22,6 @@ public class FileProcessor {
                 throw new CipherException("Не удалось создать директорию: " + parentDir);
             }
         }
-
         try (BufferedReader reader = Files.newBufferedReader(inputPath, StandardCharsets.UTF_8);
              BufferedWriter writer = Files.newBufferedWriter(outputPath, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
             String line;

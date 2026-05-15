@@ -5,7 +5,6 @@ import java.util.*;
 public class BruteForce {
 
     private final CaesarCipher cipher = new CaesarCipher();
-
     private static final Set<String> DICT_WORDS = Set.of("ты", "так", "как", "это", "кто", "или", "где", "быть", "он", "она", "уже", "что");
 
     public static class DecryptAttempt {
@@ -35,23 +34,20 @@ public class BruteForce {
     public List<DecryptAttempt> keySearch(String cipherText) {
         int size = CaesarCipher.ALPHABET_SIZE;
         List<DecryptAttempt> attempts = new ArrayList<>(size);
-
         for (int key = 0; key < size; key++) {
             String decrypted = cipher.process(cipherText, key, CipherCommands.DECODE);
-            int score = countWordMatches(decrypted.toLowerCase(), DICT_WORDS);
+            int score = countWordMatches(decrypted.toLowerCase());
             attempts.add(new DecryptAttempt(key, decrypted, score));
         }
-
-        Collections.sort(attempts, (o1, o2) -> Integer.compare(o2.getScore(), o1.getScore()));
+        attempts.sort((o1, o2) -> Integer.compare(o2.getScore(), o1.getScore()));
         return attempts;
     }
 
-    private int countWordMatches(String lowerDecrypted, Set<String> dict) {
+    private int countWordMatches(String lowerDecrypted) {
         int count = 0;
         String[] words = lowerDecrypted.split("\\P{L}+");
-
         for (String word : words) {
-            if (!word.isEmpty() && dict.contains(word)) {
+            if (!word.isEmpty() && BruteForce.DICT_WORDS.contains(word)) {
                 count++;
             }
         }

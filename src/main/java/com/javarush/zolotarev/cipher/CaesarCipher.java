@@ -8,14 +8,10 @@ public class CaesarCipher implements CipherStrategy {
 
     @Override
     public String process(String text, int key, CipherCommands command) {
-
         int shift = normalizeShift(key, command);
-
         char[] chars = text.toCharArray();
-
         for (int i = 0; i < chars.length; i++) {
             char symbol = chars[i];
-
             if (symbol >= 'А' && symbol <= 'Я') {
                 chars[i] = shiftChar(symbol, ALPHABET_UPPER, shift);
             } else if (symbol >= 'а' && symbol <= 'я') {
